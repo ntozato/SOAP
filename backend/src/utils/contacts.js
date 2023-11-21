@@ -11,13 +11,13 @@ const json = await fs.readFile(path);
 };
 
 const addContact = async (contact) => {
-    const { name, lastName, phoneNumber } = contact;
+    const { name, lastname, phoneNumber } = contact;
     const json = await readFile();
     const nextId = json.length > 0 ? json[json.length - 1].id + 1 : 1;
     const newContact = {
         id: nextId,
         name,
-        lastName,
+        lastname,
         phoneNumber
     };
     json.push(newContact);
@@ -25,16 +25,16 @@ const addContact = async (contact) => {
     return newContact;
   };
 
-  const updateContact = async (id, { name, lastName, phoneNumber }) => {
+  const updateContact = async ({id,  name, lastname, phoneNumber }) => {
     const json = await readFile();
     const contactToBeUpdated = json.find((contact) => contact.id === id);
     if (!contactToBeUpdated) {
       return null;
     }
   
-    contactToBeUpdated.name = name;
-    contactToBeUpdated.lastName = lastName;
-    contactToBeUpdated.phoneNumber = phoneNumber;
+    name ? contactToBeUpdated.name = name : contactToBeUpdated.name = contactToBeUpdated.name;
+    lastname ? contactToBeUpdated.lastname = lastname : contactToBeUpdated.lastname = contactToBeUpdated.lastname;
+    phoneNumber ? contactToBeUpdated.phoneNumber = phoneNumber : contactToBeUpdated.phoneNumber = contactToBeUpdated.phoneNumber;
   
     await fs.writeFile(path, JSON.stringify(json));
     return contactToBeUpdated;

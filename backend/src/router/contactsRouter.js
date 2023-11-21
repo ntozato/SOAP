@@ -13,14 +13,13 @@ contactsRouter.post('/', async (req, res) => {
     res.status(201).send(newContact)
 });
 
-contactsRouter.put('/:id', async (req, res) => {
-    const id = Number(req.params.id)
-    const updatedContact = await updateContact(id, req.body)
+contactsRouter.put('/', async (req, res) => {
+    const updatedContact = await updateContact(req.body)
     res.status(201).send(updatedContact)
 });
 
-contactsRouter.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+contactsRouter.post('/delete', async (req, res) => {
+    const { id } = req.body;
   
     const contactToDelete = await deleteContact(Number(id));
     if (!contactToDelete) {
